@@ -5,11 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:buttons="clr-namespace:ModernShell.Controls.Buttons;assembly=ModernShell.Controls"
         xmlns:menu="clr-namespace:ModernShell.Controls.Menu;assembly=ModernShell.Controls"
+        xmlns:viewModels="clr-namespace:ModernShell.ViewModels"
         mc:Ignorable="d"
         Title="ShellView"
         WindowState="Maximized"
         d:DesignHeight="600"
         d:DesignWidth="800">
+    
+    
     <Grid x:Name="LayoutRoot" 
           Grid.IsSharedSizeScope="True">
         <VisualStateManager.VisualStateGroups>
@@ -62,7 +65,7 @@
                             Grid.Row="1">
                 <Grid>
                     <Rectangle Fill="LightSkyBlue" />
-                    <menu:NavigationMenu Background="Red" Height="200" Width="200" VerticalAlignment="Top"/>
+                    <menu:NavigationMenu Background="Red"/>
                 </Grid>
             </ContentControl>
         </Grid>

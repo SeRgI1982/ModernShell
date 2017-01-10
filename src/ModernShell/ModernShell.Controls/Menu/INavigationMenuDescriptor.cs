@@ -1,8 +1,10 @@
+using System.Collections.Generic;
+
 namespace ModernShell.Controls.Menu
 {
     public interface INavigationMenuDescriptor
     {
         string Text { get; }
-        INavigationMenuDescriptor[] Items { get; }
+        ICollection<INavigationMenuDescriptor> Items { get; }
     }
 }
