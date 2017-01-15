@@ -84,7 +84,8 @@ namespace ModernShell.Controls.Menu
                 .SelectMany(item => item.MenuItems)
                 .Concat(MenuItems)
                 .Where(item => !Equals(item, SelectedMenuItem))
-                .Where(item => item.IsSelected);
+                .Where(item => item.IsSelected)
+                .ToArray();
 
             foreach (var item in oldSelectedMenuItems)
             {
@@ -122,15 +123,11 @@ namespace ModernShell.Controls.Menu
             e.Handled = true;
             var selectedNavigationItem = sender as NavigationMenuItem;
 
-            if (selectedNavigationItem != null)
+            if (selectedNavigationItem != null && e.NewValue)
             {
+                SelectedMenuItem = selectedNavigationItem;
+                SelectedItem = selectedNavigationItem?.DataContext as INavigationMenuDescriptor;
                 UnselectOldSelectedMenuItems();
-
-                if (e.NewValue)
-                {
-                    SelectedMenuItem = selectedNavigationItem;
-                    SelectedItem = selectedNavigationItem?.DataContext as INavigationMenuDescriptor;
-                }
             }
         }
 

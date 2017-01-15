@@ -6,7 +6,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:NavigationMenuItem}">
-                    <Grid Background="{TemplateBinding Background}">
+                    <Grid x:Name="root" Background="{TemplateBinding Background}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -21,6 +21,19 @@
                                       Visibility="Collapsed"
                                       ItemsSource="{TemplateBinding MenuItems}" />
                     </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="local:NavigationMenuItem.IsSelected" Value="True">
+                            <Setter TargetName="root"
+                                    Property="Background"
+                                    Value="Green" />
+                        </Trigger>
+                        <Trigger Property="local:NavigationMenuItem.IsSelected"
+                                 Value="False">
+                            <Setter TargetName="root"
+                                    Property="Background"
+                                    Value="Red" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

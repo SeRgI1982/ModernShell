@@ -34,9 +34,9 @@ namespace ModernShell.Controls.Menu
             new PropertyMetadata(null));
 
         public static readonly DependencyProperty IsSelectedProperty = DependencyProperty.Register(
-            "IsSelected", 
-            typeof(bool), 
-            typeof(NavigationMenuItem), 
+            "IsSelected",
+            typeof(bool),
+            typeof(NavigationMenuItem),
             new PropertyMetadata(false, OnIsSelectedChanged));
 
         private bool _deferredSelection;
@@ -104,15 +104,17 @@ namespace ModernShell.Controls.Menu
 
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
-            SelectItem();
+            if (!IsSelected)
+            {
+                SelectItem();
+            }
             base.OnMouseLeftButtonUp(e);
         }
 
         private void SelectItem()
         {
-            var oldValue = IsSelected;
-            IsSelected = !IsSelected;
-            RaiseEvent(new RoutedPropertyChangedEventArgs<bool>(oldValue, IsSelected, SelectionChangedEvent));
+            IsSelected = true;
+            RaiseEvent(new RoutedPropertyChangedEventArgs<bool>(false, IsSelected, SelectionChangedEvent));
         }
     }
 }
