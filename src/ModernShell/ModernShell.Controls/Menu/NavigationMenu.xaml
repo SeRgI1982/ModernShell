@@ -7,20 +7,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:NavigationMenu}">
                     <Grid Background="{TemplateBinding Background}">
-                        <TreeView x:Name="PART_TreeView" ItemsSource="{TemplateBinding MenuItems}">
-                            <TreeView.ItemTemplate>
-                                <HierarchicalDataTemplate ItemsSource="{Binding Items}">
-                                    <TextBlock Foreground="Red"
-                                               Text="{Binding Text}" />
-                                    <HierarchicalDataTemplate.ItemTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Text}" />
-                                        </DataTemplate>
-                                    </HierarchicalDataTemplate.ItemTemplate>
-                                </HierarchicalDataTemplate>
-                            </TreeView.ItemTemplate>
-
-                        </TreeView>
+                        <ItemsControl x:Name="PART_MenuItems"
+                                      ItemsSource="{TemplateBinding MenuItems}" />
+                        
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
