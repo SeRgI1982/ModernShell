@@ -51,7 +51,7 @@
 
         <Grid x:Name="grid"
               Grid.Column="0"
-              Width="225">
+              Width="250">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"
                                SharedSizeGroup="FirstRowHeight" />
