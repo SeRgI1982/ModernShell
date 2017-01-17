@@ -27,16 +27,25 @@ namespace ModernShell.ViewModels
 
         private void GenerateMenuItems()
         {
-            var menu1 = new MenuItem("Menu 1", null);
-            var menu2 = new MenuItem("Menu 2",
+            var menu1 = new MenuItem("Dashboard", "home");
+            var menu2 = new MenuItem("Layouts", "airplay",
                                      new List<INavigationMenuDescriptor>
                                      {
-                                         new MenuItem("Menu 2.1", null),
-                                         new MenuItem("Menu 2.2", null),
-                                         new MenuItem("Menu 2.3", null)
+                                         new MenuItem("Layout Options"),
+                                         new MenuItem("Boxed Layout"),
+                                         new MenuItem("Inner Boxed Layout"),
+                                         new MenuItem("Extended Layout"),
+                                         new MenuItem("RTL Layout"),
+                                         new MenuItem("Horizontal Menu"),
+                                         new MenuItem("Horizontal Menu & Boxed"),
                                      });
-            var menu3 = new MenuItem("Menu 3", null);
-            Items = new List<MenuItem> {menu1, menu2, menu3};
+            var menu3 = new MenuItem("Tables", "playlist_add_check", new List<INavigationMenuDescriptor>
+                                     {
+                                         new MenuItem("Basic Tables"),
+                                         new MenuItem("Data Tables"),
+                                     });
+            var menu4 = new MenuItem("Charts", "timeline");
+            Items = new List<MenuItem> {menu1, menu2, menu3, menu4};
         }
     }
 }

@@ -89,7 +89,10 @@ namespace ModernShell.Controls.Menu
 
             foreach (var item in oldSelectedMenuItems)
             {
-                item.IsSelected = false;
+                if (!(item.MenuItems?.Any(subItem => subItem.Equals(SelectedMenuItem)) ?? false))
+                {
+                    item.IsSelected = false;
+                }
             }
         }
 
@@ -141,6 +144,7 @@ namespace ModernShell.Controls.Menu
             foreach (var menuDescriptor in menuDescriptors)
             {
                 var internalMenuItem = new NavigationMenuItem { DataContext = menuDescriptor };
+                internalMenuItem.AddHandler(NavigationMenuItem.SelectionChangedEvent, new RoutedPropertyChangedEventHandler<bool>(OnNavigationMenuItemSelectionChanged));
                 menuItems.Add(internalMenuItem);
 
                 if (menuDescriptor.Items?.Any() ?? false)
@@ -151,10 +155,6 @@ namespace ModernShell.Controls.Menu
                     }
 
                     CalculateMenuItems(menuDescriptor.Items, internalMenuItem.MenuItems);
-                }
-                else
-                {
-                    internalMenuItem.AddHandler(NavigationMenuItem.SelectionChangedEvent, new RoutedPropertyChangedEventHandler<bool>(OnNavigationMenuItemSelectionChanged));
                 }
             }
         }

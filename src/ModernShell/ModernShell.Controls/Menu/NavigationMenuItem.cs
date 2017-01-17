@@ -108,7 +108,8 @@ namespace ModernShell.Controls.Menu
             {
                 SelectItem();
             }
-            base.OnMouseLeftButtonUp(e);
+
+            e.Handled = true;
         }
 
         private void SelectItem()

@@ -18,41 +18,29 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <Grid Margin="{TemplateBinding Padding}"
-                              Grid.Row="0"
-                              Background="DarkGreen">
-                            <Grid.Resources>
-                                <Geometry x:Key="HomeIcon">
-                                    M8,17L8,11 12,11 12,17 17,17 17,9 20,9 10,0 0,9 3,9 3,17z
-                                </Geometry>
-                                <FontFamily x:Key="MaterialFont">../Fonts/MaterialIcons-Regular.ttf#Material Icons</FontFamily>
-                            </Grid.Resources>
-                            
+                              Grid.Row="0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
+<Grid.Resources>
+                                <FontFamily x:Key="MaterialFont">../Fonts/MaterialIcons-Regular.ttf#Material Icons</FontFamily>
 
-                            <TextBlock Grid.Column="0"
+                            </Grid.Resources>
+                            <TextBlock x:Name="PART_Icon" 
+                                       Grid.Column="0"
                                        FontFamily="{StaticResource MaterialFont}"
-                                       Text="&#xE88A;"
+                                       Text="{Binding Icon}"
                                        Foreground="{TemplateBinding Foreground}"
                                        Margin="0,0,5,3"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Top"
                                        FontSize="19" />
                             
-                            <!--<Path x:Name="PART_Icon"
-                                  Grid.Column="0"
-                                  Margin="0,0,5,4"
-                                  HorizontalAlignment="Left"
-                                  VerticalAlignment="Top"
-                                  Fill="{TemplateBinding Foreground}"
-                                  Data="{StaticResource HomeIcon}" />-->
-
                             <TextBlock x:Name="PART_Title"
                                        Grid.Column="1"
-                                       FontFamily="Roboto"
+                                       FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type local:NavigationMenu}, ResourceId=RobotoFont}}"
                                        FontSize="14"
                                        VerticalAlignment="Center"
                                        Foreground="{TemplateBinding Foreground}"
@@ -65,7 +53,21 @@
                         <ItemsControl x:Name="PART_MenuItems"
                                       Grid.Row="1"
                                       Visibility="Collapsed"
-                                      ItemsSource="{TemplateBinding MenuItems}" />
+                                      ItemsSource="{TemplateBinding MenuItems}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <TextBlock FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type local:NavigationMenu}, ResourceId=RobotoFont}}"
+                                                   FontSize="13"
+                                                   FontWeight="Light"
+                                                   Margin="53,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="#FFE1EAF1"
+                                                   Text="{Binding Text}" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="local:NavigationMenuItem.IsSelected"
