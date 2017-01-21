@@ -71,7 +71,7 @@
             <ContentControl x:Name="NavigationMenuContent"
                             Grid.Row="1">
                 <Grid>
-                    <Rectangle Fill="LightSkyBlue" />
+                    <Rectangle Fill="#FF1B1E24" />
                     <menu:NavigationMenu ItemsSource="{Binding Items}"
                                          SelectedItem="{Binding SelectedItem}"/>
                 </Grid>

@@ -9,6 +9,7 @@ namespace ModernShell.Controls.Menu
     public class NavigationMenuItem : Control
     {
         private ItemsControl _menuItemsControl;
+        private bool _deferredSelection;
 
         static NavigationMenuItem()
         {
@@ -38,8 +39,6 @@ namespace ModernShell.Controls.Menu
             typeof(bool),
             typeof(NavigationMenuItem),
             new PropertyMetadata(false, OnIsSelectedChanged));
-
-        private bool _deferredSelection;
 
         public event RoutedPropertyChangedEventHandler<bool> SelectionChanged
         {
@@ -114,8 +113,9 @@ namespace ModernShell.Controls.Menu
 
         private void SelectItem()
         {
-            IsSelected = true;
-            RaiseEvent(new RoutedPropertyChangedEventArgs<bool>(false, IsSelected, SelectionChangedEvent));
+            var oldSelectionValue = IsSelected;
+            IsSelected = !IsSelected;
+            RaiseEvent(new RoutedPropertyChangedEventArgs<bool>(oldSelectionValue, IsSelected, SelectionChangedEvent));
         }
     }
 }

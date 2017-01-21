@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -9,8 +8,6 @@ namespace ModernShell.Controls.Menu
 {
     public class NavigationMenu : Control
     {
-        private ListView _listView;
-
         static NavigationMenu()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NavigationMenu), new FrameworkPropertyMetadata(typeof(NavigationMenu)));
@@ -44,8 +41,6 @@ namespace ModernShell.Controls.Menu
             typeof(NavigationMenu),
             new PropertyMetadata(null, SelectedMenuItemPropertyChanged));
 
-        private ItemsControl _menuItemsControl;
-
         public ICollection<NavigationMenuItem> MenuItems
         {
             set { SetValue(MenuItemsProperty, value); }
@@ -68,14 +63,6 @@ namespace ModernShell.Controls.Menu
         {
             set { SetValue(SelectedItemProperty, value); }
             get { return (INavigationMenuDescriptor)GetValue(SelectedItemProperty); }
-        }
-
-        /// <summary>
-        /// When overridden in a derived class, is invoked whenever application code or internal processes call <see cref="M:System.Windows.FrameworkElement.ApplyTemplate"/>.
-        /// </summary>
-        public override void OnApplyTemplate()
-        {
-            _menuItemsControl = Template.FindName("PART_MenuItems", this) as ItemsControl;
         }
 
         private void UnselectOldSelectedMenuItems()
@@ -129,7 +116,7 @@ namespace ModernShell.Controls.Menu
             if (selectedNavigationItem != null && e.NewValue)
             {
                 SelectedMenuItem = selectedNavigationItem;
-                SelectedItem = selectedNavigationItem?.DataContext as INavigationMenuDescriptor;
+                SelectedItem = selectedNavigationItem.DataContext as INavigationMenuDescriptor;
                 UnselectOldSelectedMenuItems();
             }
         }
