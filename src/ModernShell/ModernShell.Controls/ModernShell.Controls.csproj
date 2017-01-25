@@ -108,6 +108,14 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Buttons\MaterialCircleButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Buttons\MaterialIconButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Menu\NavigationMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,7 +128,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Buttons\HamburgerMenuButton.cs" />
+    <Compile Include="Buttons\MaterialCircleButton.cs" />
+    <Compile Include="Buttons\MaterialIconButton.cs" />
     <Compile Include="Menu\INavigationMenuDescriptor.cs" />
     <Compile Include="Menu\NavigationMenu.cs">
       <SubType>Code</SubType>

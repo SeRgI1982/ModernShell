@@ -8,9 +8,9 @@
     <FontFamily x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=MaterialFont}">../Fonts/MaterialIcons-Regular.ttf#Material Icons</FontFamily>
     <FontFamily x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}">../Fonts/Roboto-Regular.ttf#Roboto Regular</FontFamily>
 
-
     <ResourceDictionary.MergedDictionaries>
-        
+        <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Buttons/MaterialCircleButton.xaml" />
+        <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Buttons/MaterialIconButton.xaml" />
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Menu/NavigationMenu.xaml" />
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Menu/NavigationMenuItem.xaml" />
     </ResourceDictionary.MergedDictionaries>

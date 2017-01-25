@@ -7,21 +7,29 @@ namespace ModernShell.Views
     /// <summary>
     /// Interaction logic for ShellView.xaml
     /// </summary>
-    public partial class ShellView : Window
+    public partial class ShellView
     {
         public ShellView()
         {
             InitializeComponent();
-            HamburgerMenuButton.AddHandler(HamburgerMenuButton.IsOpenedEvent, new RoutedPropertyChangedEventHandler<bool>(OnHamburgerMenuClicked));
+            HamburgerMenuButton.AddHandler(MaterialIconButton.IsOpenedEvent, new RoutedPropertyChangedEventHandler<bool>(OnHamburgerMenuClicked));
+            NotificationMenuButton.AddHandler(MaterialIconButton.IsOpenedEvent, new RoutedPropertyChangedEventHandler<bool>(OnNotificationMenuClicked));
+        }
+
+        private void OnNotificationMenuClicked(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        {
+            var shouldOpenNotifyPanel = e.NewValue;
+
+            VisualStateManager.GoToElementState(LayoutRoot,
+                shouldOpenNotifyPanel ? "OpenNotificationPanel" : "CloseNotificationPanel", true);
         }
 
         private void OnHamburgerMenuClicked(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
-            var states = VisualStateManager.GetVisualStateGroups(LayoutRoot);
-            var stateName = e.NewValue ? "Expanded" : "Collapsed";
-            
-            var result = VisualStateManager.GoToElementState(LayoutRoot, stateName, true);
-            InternalSmallNavMenu.Visibility = !e.NewValue ? Visibility.Visible : Visibility.Collapsed;
+            var shouldOpenMenuPanel = e.NewValue;
+
+            VisualStateManager.GoToElementState(LayoutRoot, shouldOpenMenuPanel ? "OpenMenuPanel" : "CloseMenuPanel",
+                true);
         }
     }
 }
