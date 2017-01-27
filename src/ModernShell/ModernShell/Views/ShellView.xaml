@@ -19,7 +19,7 @@
     <Grid x:Name="LayoutRoot"
           Grid.IsSharedSizeScope="True">
         <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="GeneralStateGroup">
+            <VisualStateGroup x:Name="LeftStateGroup">
                 <VisualState x:Name="OpenMenuPanel">
                     <Storyboard>
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
@@ -29,11 +29,6 @@
                             <EasingDoubleKeyFrame KeyTime="0:0:0.25"
                                                   Value="250" />
                         </DoubleAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="menuPanel"
-                                                       Storyboard.TargetProperty="(UIElement.Visibility)">
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0.0"
-                                                    Value="{x:Static Visibility.Visible}" />
-                        </ObjectAnimationUsingKeyFrames>
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
                                                        Storyboard.TargetName="InternalSmallNavMenu">
                             <EasingDoubleKeyFrame KeyTime="0"
@@ -54,11 +49,6 @@
                             <EasingDoubleKeyFrame KeyTime="0:0:0.25"
                                                   Value="0" />
                         </DoubleAnimationUsingKeyFrames>
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="menuPanel"
-                                                       Storyboard.TargetProperty="(UIElement.Visibility)">
-                            <DiscreteObjectKeyFrame KeyTime="0:0:0.25"
-                                                    Value="{x:Static Visibility.Collapsed}" />
-                        </ObjectAnimationUsingKeyFrames>
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
                                                        Storyboard.TargetName="InternalSmallNavMenu">
                             <EasingDoubleKeyFrame KeyTime="0"
@@ -68,9 +58,11 @@
                             <EasingDoubleKeyFrame KeyTime="0:0:0.25"
                                                   Value="50" />
                         </DoubleAnimationUsingKeyFrames>
-                        
+
                     </Storyboard>
                 </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup x:Name="RiightStateGroup">
                 <VisualState x:Name="OpenNotificationPanel">
                     <Storyboard>
                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
@@ -103,7 +95,7 @@
 
         <Grid x:Name="menuPanel"
               Grid.Column="0"
-              Width="250">
+              Width="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"
                                SharedSizeGroup="FirstRowHeight" />
@@ -160,14 +152,14 @@
                             Background="White"
                             Grid.Row="0">
                 <Grid>
-                    
+
                     <buttons:MaterialIconButton x:Name="HamburgerMenuButton"
                                                 Tag="menu"
-                                                IsOpen="True"
                                                 HorizontalAlignment="Left"
                                                 DisableTransitions="True"
-                                                FontSize="24"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                FontSize="24" />
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right">
                         <Grid>
                             <buttons:MaterialCircleButton ImageSource="../Assets/avatar_small2x.jpg"
                                                           Width="35"
@@ -187,19 +179,23 @@
                                          VerticalAlignment="Center" />
                             </Grid>
                         </Grid>
-                        
+
 
                         <buttons:MaterialIconButton Tag="tune"
                                                     DisableTransitions="True"
                                                     FontSize="24"
-                                                    Margin="13.5,0,0,0"/>
-                        
-                        <Rectangle Fill="#FFE1E1E1" Width="1" Height="15" Margin="-4.5,0" VerticalAlignment="Center" />
+                                                    Margin="13.5,0,0,0" />
+
+                        <Rectangle Fill="#FFE1E1E1"
+                                   Width="1"
+                                   Height="15"
+                                   Margin="-4.5,0"
+                                   VerticalAlignment="Center" />
                         <buttons:MaterialIconButton Tag="chat"
                                                     x:Name="NotificationMenuButton"
                                                     DisableTransitions="True"
                                                     FontSize="24"
-                                                    Margin="0,0,10.5,0"/>
+                                                    Margin="0,0,10.5,0" />
                     </StackPanel>
                 </Grid>
             </ContentControl>
@@ -215,12 +211,12 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <ItemsControl x:Name="InternalSmallNavMenu"
-                                  Width="0"
+                                  Width="50"
                                   Background="#FF0AA699"
                                   ItemsSource="{Binding Items}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <buttons:MaterialIconButton Tag="{Binding Icon}" 
+                                <buttons:MaterialIconButton Tag="{Binding Icon}"
                                                             Foreground="White" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
