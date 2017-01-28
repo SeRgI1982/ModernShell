@@ -116,6 +116,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Buttons\SmallMenuIconButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Menu\NavigationMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -130,6 +134,7 @@
     </Page>
     <Compile Include="Buttons\MaterialCircleButton.cs" />
     <Compile Include="Buttons\MaterialIconButton.cs" />
+    <Compile Include="Buttons\SmallMenuIconButton.cs" />
     <Compile Include="Menu\INavigationMenuDescriptor.cs" />
     <Compile Include="Menu\NavigationMenu.cs">
       <SubType>Code</SubType>

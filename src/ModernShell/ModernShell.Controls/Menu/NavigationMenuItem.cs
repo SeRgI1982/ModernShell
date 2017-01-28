@@ -40,6 +40,12 @@ namespace ModernShell.Controls.Menu
             typeof(NavigationMenuItem),
             new PropertyMetadata(false, OnIsSelectedChanged));
 
+        public static readonly DependencyProperty ItemTemplateProperty = DependencyProperty.Register(
+            "ItemTemplate",
+            typeof(DataTemplate),
+            typeof(NavigationMenuItem),
+            new PropertyMetadata(null));
+
         public event RoutedPropertyChangedEventHandler<bool> SelectionChanged
         {
             add { AddHandler(SelectionChangedEvent, value); }
@@ -62,6 +68,12 @@ namespace ModernShell.Controls.Menu
         {
             get { return (bool)GetValue(IsSelectedProperty); }
             set { SetValue(IsSelectedProperty, value); }
+        }
+
+        public DataTemplate ItemTemplate
+        {
+            set { SetValue(ItemTemplateProperty, value); }
+            get { return (DataTemplate)GetValue(ItemTemplateProperty); }
         }
 
         public override void OnApplyTemplate()
@@ -111,7 +123,7 @@ namespace ModernShell.Controls.Menu
             e.Handled = true;
         }
 
-        private void SelectItem()
+        internal void SelectItem()
         {
             var oldSelectionValue = IsSelected;
             IsSelected = !IsSelected;

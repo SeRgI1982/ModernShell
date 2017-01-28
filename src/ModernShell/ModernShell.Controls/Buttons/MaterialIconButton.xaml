@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ModernShell.Controls.Buttons">
 
@@ -85,10 +85,10 @@
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" SourceName="contentPresenter" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="DisableTransitions" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Opacity" Value="0.05" TargetName="PART_Overlay" />
+                            <Setter Property="Opacity" Value="0.1" TargetName="PART_Overlay" />
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="#ADADAD" />
