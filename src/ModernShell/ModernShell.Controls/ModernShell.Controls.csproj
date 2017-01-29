@@ -116,15 +116,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Buttons\SmallMenuIconButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Menu\NavigationMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Menu\NavigationMenuItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Menu\SmallNavigationMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Menu\SmallNavigationMenuItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,7 +138,6 @@
     </Page>
     <Compile Include="Buttons\MaterialCircleButton.cs" />
     <Compile Include="Buttons\MaterialIconButton.cs" />
-    <Compile Include="Buttons\SmallMenuIconButton.cs" />
     <Compile Include="Menu\INavigationMenuDescriptor.cs" />
     <Compile Include="Menu\NavigationMenu.cs">
       <SubType>Code</SubType>
@@ -142,6 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Menu\NavigationMenuItem.cs" />
+    <Compile Include="Menu\SmallNavigationMenu.cs" />
+    <Compile Include="Menu\SmallNavigationMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

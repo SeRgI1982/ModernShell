@@ -5,7 +5,7 @@
     xmlns:menu="clr-namespace:ModernShell.Controls.Menu">
 
     <!--Fonts-->
-    <FontFamily x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=MaterialFont}">../Fonts/MaterialIcons-Regular.ttf#Material Icons</FontFamily>
+    <FontFamily x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=MaterialFont}">/ModernShell.Controls;component/Fonts/MaterialIcons-Regular.ttf#Material Icons</FontFamily>
     <FontFamily x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}">../Fonts/Roboto-Regular.ttf#Roboto Regular</FontFamily>
 
     <!--Color Brushes-->
@@ -14,13 +14,15 @@
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=DefaultMenuItemForeground}">#FF8b91a0</SolidColorBrush>
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=SelectedMenuItemForeground}">#FFFFFFFF</SolidColorBrush>
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=DefaultSubMenuItemForeground}">#FFE1EAF1</SolidColorBrush>
+    <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=DefaultSmallMenuItemBackground}">#FF0AA699</SolidColorBrush>
     
     <ResourceDictionary.MergedDictionaries>
-        <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Buttons/SmallMenuIconButton.xaml" />
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Buttons/MaterialCircleButton.xaml" />
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Buttons/MaterialIconButton.xaml" />
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Menu/NavigationMenu.xaml" />
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Menu/NavigationMenuItem.xaml" />
+        <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Menu/SmallNavigationMenu.xaml" />
+        <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Menu/SmallNavigationMenuItem.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 

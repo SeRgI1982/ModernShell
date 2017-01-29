@@ -6,29 +6,29 @@ using System.Windows.Data;
 
 namespace ModernShell.Controls.Menu
 {
-    public class NavigationMenu : Control
+    public class SmallNavigationMenu : Control
     {
-        static NavigationMenu()
+        static SmallNavigationMenu()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(NavigationMenu), new FrameworkPropertyMetadata(typeof(NavigationMenu)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof (SmallNavigationMenu), new FrameworkPropertyMetadata(typeof (SmallNavigationMenu)));
         }
 
         public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register(
             "ItemsSource",
-            typeof(IEnumerable<INavigationMenuDescriptor>),
-            typeof(NavigationMenu),
+            typeof (IEnumerable<INavigationMenuDescriptor>),
+            typeof (SmallNavigationMenu),
             new PropertyMetadata(null, ItemsSourcePropertyChanged));
 
         public static readonly DependencyProperty MenuItemsProperty = DependencyProperty.Register(
             "MenuItems",
-            typeof(ICollection<NavigationMenuItem>),
-            typeof(NavigationMenu),
+            typeof (ICollection<SmallNavigationMenuItem>),
+            typeof (SmallNavigationMenu),
             new PropertyMetadata(null, MenuItemsPropertyChanged));
 
         public static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register(
             "SelectedItem",
-            typeof(INavigationMenuDescriptor),
-            typeof(NavigationMenu),
+            typeof (INavigationMenuDescriptor),
+            typeof (SmallNavigationMenu),
             new FrameworkPropertyMetadata(null, OnSelectedItemChanged)
             {
                 BindsTwoWayByDefault = true,
@@ -37,26 +37,26 @@ namespace ModernShell.Controls.Menu
 
         public static readonly DependencyProperty SelectedMenuItemProperty = DependencyProperty.Register(
             "SelectedMenuItem",
-            typeof(NavigationMenuItem),
-            typeof(NavigationMenu),
+            typeof (SmallNavigationMenuItem),
+            typeof (SmallNavigationMenu),
             new PropertyMetadata(null, SelectedMenuItemPropertyChanged));
 
         public static readonly DependencyProperty RootItemTemplateProperty = DependencyProperty.Register(
             "RootItemTemplate",
             typeof(DataTemplate),
-            typeof(NavigationMenu),
+            typeof(SmallNavigationMenu),
             new PropertyMetadata(null));
 
         public static readonly DependencyProperty LeafItemTemplateProperty = DependencyProperty.Register(
-            "LeafItemTemplate",
-            typeof(DataTemplate),
-            typeof(NavigationMenu),
+            "LeafItemTemplate", 
+            typeof(DataTemplate), 
+            typeof(SmallNavigationMenu), 
             new PropertyMetadata(null));
 
         public DataTemplate RootItemTemplate
         {
             set { SetValue(RootItemTemplateProperty, value); }
-            get { return (DataTemplate)GetValue(RootItemTemplateProperty); }
+            get { return (DataTemplate) GetValue(RootItemTemplateProperty); }
         }
 
         public DataTemplate LeafItemTemplate
@@ -65,31 +65,31 @@ namespace ModernShell.Controls.Menu
             set { SetValue(LeafItemTemplateProperty, value); }
         }
 
-        public ICollection<NavigationMenuItem> MenuItems
+        public ICollection<SmallNavigationMenuItem> MenuItems
         {
             set { SetValue(MenuItemsProperty, value); }
-            get { return (ICollection<NavigationMenuItem>)GetValue(MenuItemsProperty); }
+            get { return (ICollection<SmallNavigationMenuItem>) GetValue(MenuItemsProperty); }
         }
 
-        public NavigationMenuItem SelectedMenuItem
+        public SmallNavigationMenuItem SelectedMenuItem
         {
             set { SetValue(SelectedMenuItemProperty, value); }
-            get { return (NavigationMenuItem)GetValue(SelectedMenuItemProperty); }
+            get { return (SmallNavigationMenuItem) GetValue(SelectedMenuItemProperty); }
         }
 
         public IEnumerable<INavigationMenuDescriptor> ItemsSource
         {
             set { SetValue(ItemsSourceProperty, value); }
-            get { return (IEnumerable<INavigationMenuDescriptor>)GetValue(ItemsSourceProperty); }
+            get { return (IEnumerable<INavigationMenuDescriptor>) GetValue(ItemsSourceProperty); }
         }
 
         public INavigationMenuDescriptor SelectedItem
         {
             set { SetValue(SelectedItemProperty, value); }
-            get { return (INavigationMenuDescriptor)GetValue(SelectedItemProperty); }
+            get { return (INavigationMenuDescriptor) GetValue(SelectedItemProperty); }
         }
 
-        private void UnselectOldSelectedMenuItems(NavigationMenuItem selectedMenuItem)
+        private void UnselectOldSelectedMenuItems(SmallNavigationMenuItem selectedMenuItem)
         {
             var oldSelectedMenuItems = MenuItems.Where(item => item.MenuItems != null)
                 .SelectMany(item => item.MenuItems)
@@ -100,7 +100,9 @@ namespace ModernShell.Controls.Menu
 
             foreach (var item in oldSelectedMenuItems)
             {
-                if (!(item.MenuItems?.Any(subItem => subItem.Equals(selectedMenuItem)) ?? false))
+                item.ClosePopup();
+
+                if (item.MenuItems?.All(x => !Equals(x, selectedMenuItem)) ?? true)
                 {
                     item.IsSelected = false;
                 }
@@ -109,14 +111,14 @@ namespace ModernShell.Controls.Menu
 
         private static void SelectedMenuItemPropertyChanged(object sender, DependencyPropertyChangedEventArgs args)
         {
-            //var menu = (NavigationMenu)sender;
-            //var selectedNavigationItem = args.NewValue as NavigationMenuItem;
+            //var menu = (SmallNavigationMenu) sender;
+            //var selectedNavigationItem = args.NewValue as SmallNavigationMenuItem;
             //menu.MarkAsSelected(selectedNavigationItem);
         }
 
         private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var menu = (NavigationMenu)d;
+            var menu = (SmallNavigationMenu)d;
             var selectedDescriptor = e.NewValue as INavigationMenuDescriptor;
             menu.MarkAsSelected(selectedDescriptor);
         }
@@ -127,7 +129,7 @@ namespace ModernShell.Controls.Menu
 
         private static void ItemsSourcePropertyChanged(object sender, DependencyPropertyChangedEventArgs args)
         {
-            var control = (NavigationMenu)sender;
+            var control = (SmallNavigationMenu) sender;
             control.SetupMenuItems(args.NewValue as IEnumerable<INavigationMenuDescriptor>);
         }
 
@@ -146,6 +148,14 @@ namespace ModernShell.Controls.Menu
             if (navigationItem != null)
             {
                 navigationItem.IsSelected = true;
+                foreach (var item in MenuItems)
+                {
+                    if (item.MenuItems?.Any(x => Equals(x, navigationItem)) ?? false)
+                    {
+                        item.IsSelected = true;
+                    }
+                }
+
                 UnselectOldSelectedMenuItems(navigationItem);
             }
         }
@@ -153,16 +163,16 @@ namespace ModernShell.Controls.Menu
         private void SetupMenuItems(IEnumerable<INavigationMenuDescriptor> navigationMenuDescriptors)
         {
             var menuDescriptors = navigationMenuDescriptors?.ToArray();
-            var menuItems = new List<NavigationMenuItem>();
+            var menuItems = new List<SmallNavigationMenuItem>();
             CalculateMenuItems(menuDescriptors, menuItems);
             MenuItems = menuItems;
             MenuItems?.FirstOrDefault()?.MarkAsSelected();
         }
 
-        private void OnNavigationMenuItemSelectionChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
+        private void OnSmallNavigationMenuItemSelectionChanged(object sender, RoutedPropertyChangedEventArgs<bool> e)
         {
             e.Handled = true;
-            var selectedNavigationItem = sender as NavigationMenuItem;
+            var selectedNavigationItem = sender as SmallNavigationMenuItem;
 
             if (selectedNavigationItem != null && e.NewValue)
             {
@@ -170,14 +180,14 @@ namespace ModernShell.Controls.Menu
             }
         }
 
-        private void SelectMenuItem(NavigationMenuItem item)
+        private void SelectMenuItem(SmallNavigationMenuItem item)
         {
             SelectedItem = item.DataContext as INavigationMenuDescriptor;
             SelectedMenuItem = item;
             UnselectOldSelectedMenuItems(item);
         }
 
-        private void CalculateMenuItems(ICollection<INavigationMenuDescriptor> menuDescriptors, ICollection<NavigationMenuItem> menuItems)
+        private void CalculateMenuItems(ICollection<INavigationMenuDescriptor> menuDescriptors, ICollection<SmallNavigationMenuItem> menuItems)
         {
             if (menuDescriptors == null)
             {
@@ -186,9 +196,9 @@ namespace ModernShell.Controls.Menu
 
             foreach (var menuDescriptor in menuDescriptors)
             {
-                var menuItem = new NavigationMenuItem { DataContext = menuDescriptor };
-                menuItem.SetBinding(NavigationMenuItem.ItemTemplateProperty, new Binding(menuDescriptor.IsRoot ? "RootItemTemplate" : "LeafItemTemplate") {Source = this});
-                menuItem.AddHandler(NavigationMenuItem.SelectionChangedEvent, new RoutedPropertyChangedEventHandler<bool>(OnNavigationMenuItemSelectionChanged));
+                var menuItem = new SmallNavigationMenuItem {DataContext = menuDescriptor};
+                menuItem.SetBinding(SmallNavigationMenuItem.ItemTemplateProperty, new Binding(menuDescriptor.IsRoot ? "RootItemTemplate" : "LeafItemTemplate") {Source = this});
+                menuItem.AddHandler(SmallNavigationMenuItem.SelectionChangedEvent, new RoutedPropertyChangedEventHandler<bool>(OnSmallNavigationMenuItemSelectionChanged));
                 menuItems.Add(menuItem);
 
                 if (!(menuDescriptor.Items?.Any() ?? false))
@@ -198,10 +208,18 @@ namespace ModernShell.Controls.Menu
 
                 if (menuItem.MenuItems == null)
                 {
-                    menuItem.MenuItems = new List<NavigationMenuItem>();
+                    menuItem.MenuItems = new List<SmallNavigationMenuItem>();
                 }
 
                 CalculateMenuItems(menuDescriptor.Items, menuItem.MenuItems);
+            }
+        }
+
+        public void ClosePopups()
+        {
+            foreach (var menuItem in MenuItems)
+            {
+                menuItem.ClosePopup();
             }
         }
     }

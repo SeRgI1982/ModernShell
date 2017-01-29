@@ -137,8 +137,7 @@
                 <Grid Background="#FF1B1E24">
                     <menu:NavigationMenu x:Name="navMenu" 
                                          ItemsSource="{Binding Items}"
-                                         SelectedItem="{Binding SelectedItem}"
-                                         SelectedMenuItem="{Binding SelectedMenuItem, ElementName=smallNavMenu, Mode=TwoWay}"/>
+                                         SelectedItem="{Binding SelectedItem, ElementName=smallNavMenu, Mode=TwoWay}" />
                 </Grid>
             </ContentControl>
         </Grid>
@@ -154,7 +153,6 @@
                             Background="White"
                             Grid.Row="0">
                 <Grid>
-
                     <buttons:MaterialIconButton x:Name="HamburgerMenuButton"
                                                 Tag="menu"
                                                 HorizontalAlignment="Left"
@@ -208,101 +206,6 @@
                           Background="#FFE5E9EC"
                           Grid.Row="1">
                 <Grid>
-                    <Grid.Resources>
-                        <DataTemplate x:Key="RootItemTemplate2">
-                            <ContentControl>
-                                <ContentControl.Template>
-                                    <ControlTemplate TargetType="ContentControl">
-                                        <Grid x:Name="PART_Container">
-                                            <buttons:MaterialIconButton Tag="{Binding Icon}"
-                                                                        Foreground="White" />
-                                        </Grid>
-                                    </ControlTemplate>
-                                </ContentControl.Template>
-                            </ContentControl>
-                        </DataTemplate>
-
-                        <DataTemplate x:Key="LeafItemTemplate2">
-                            <ContentControl>
-                                <ContentControl.Template>
-                                    <ControlTemplate TargetType="ContentControl">
-                                        <Grid Background="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=DefaultSubMenuItemBackground}}"
-                                              Height="31">
-                                            <Grid VerticalAlignment="Center"
-                                                  Background="Transparent"
-                                                  x:Name="container">
-                                                <TextBlock FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}"
-                                                           FontSize="13"
-                                                           FontWeight="Light"
-                                                           Margin="53,7.5,0,7.5"
-                                                           x:Name="text"
-                                                           VerticalAlignment="Center"
-                                                           Foreground="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=DefaultSubMenuItemForeground}}"
-                                                           Text="{Binding Text}" />
-                                            </Grid>
-                                        </Grid>
-                                        <ControlTemplate.Triggers>
-                                            <Trigger Property="IsMouseOver"
-                                                     Value="True"
-                                                     SourceName="container">
-                                                <Setter Property="Background"
-                                                        Value="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=DefaultMenuItemBackground}}"
-                                                        TargetName="container" />
-                                                <Setter Property="Foreground"
-                                                        Value="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=SelectedMenuItemForeground}}"
-                                                        TargetName="text" />
-                                            </Trigger>
-                                        </ControlTemplate.Triggers>
-                                    </ControlTemplate>
-                                </ContentControl.Template>
-                            </ContentControl>
-                        </DataTemplate>
-
-                        <DataTemplate x:Key="ItemTemplate2">
-                            <Grid SnapsToDevicePixels="True">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-
-                                <ContentControl Grid.Row="0"
-                                                Content="{Binding }"
-                                                ContentTemplate="{StaticResource RootItemTemplate2}">
-                                    <ContentControl.Style>
-                                        <Style TargetType="ContentControl">
-                                            <Setter Property="Visibility"
-                                                    Value="Collapsed" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsRoot}"
-                                                             Value="True">
-                                                    <Setter Property="Visibility"
-                                                            Value="Visible" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </ContentControl.Style>
-                                </ContentControl>
-
-                                <ContentControl Grid.Row="1"
-                                                Content="{Binding }"
-                                                ContentTemplate="{StaticResource LeafItemTemplate2}">
-                                    <ContentControl.Style>
-                                        <Style TargetType="ContentControl">
-                                            <Setter Property="Visibility"
-                                                    Value="Collapsed" />
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding IsRoot}"
-                                                             Value="False">
-                                                    <Setter Property="Visibility"
-                                                            Value="Visible" />
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </ContentControl.Style>
-                                </ContentControl>
-                            </Grid>
-                        </DataTemplate>
-                    </Grid.Resources>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
@@ -311,45 +214,38 @@
                     <Grid x:Name="InternalSmallNavMenu"
                           Width="50"
                           Background="#FF0AA699">
-                        <menu:NavigationMenu x:Name="smallNavMenu" 
-                                             MenuItemTemplate="{StaticResource RootItemTemplate2}"
-                                             ItemsSource="{Binding Items}"
-                                             SelectedItem="{Binding SelectedItem}">
-                            <menu:NavigationMenu.MenuItemStyle>
-                                <Style TargetType="{x:Type menu:NavigationMenuItem}"
-                                       BasedOn="{StaticResource {x:Type menu:NavigationMenuItem}}">
-                                    <Setter Property="menu:NavigationMenuItem.Background"
-                                            Value="#FF0AA699" />
-                                </Style>
-                            </menu:NavigationMenu.MenuItemStyle>
-                        </menu:NavigationMenu>
-                        
-                        
+                        <menu:SmallNavigationMenu x:Name="smallNavMenu"
+                                                  ItemsSource="{Binding Items}"
+                                                  SelectedItem="{Binding SelectedItem}" />
+                    </Grid>
+
+                    <Grid Grid.Column="1"
+                          Margin="26">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="32" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <StackPanel x:Name="breadcrumb" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="YOU ARE HERE"
+                                       Foreground="#ff7b7d82"
+                                       FontSize="12.5"
+                                       Margin="0,0,10,0"
+                                       FontWeight="Regular"
+                                       FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}" />
+                            <TextBlock Text="&#xE5CC;"
+                                       Margin="2,2,2,0"
+                                       Foreground="#FF515050"
+                                       FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=MaterialFont}}"
+                                       />
+                            <TextBlock Text="{Binding SelectedItem.Text}"
+                                       FontWeight="DemiBold"
+                                       FontSize="14"
+                                       Foreground="#FF515050"
+                                       Margin="10,0,0,0"
+                                       FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}" />
+                        </StackPanel>
                         
                     </Grid>
-                    <!--<ItemsControl x:Name="InternalSmallNavMenu"
-                                  Width="50"
-                                  Background="#FF0AA699"
-                                  ItemsSource="{Binding Items}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <buttons:SmallMenuIconButton MenuItems="{Binding Items}">
-                                    <buttons:SmallMenuIconButton.ButtonTemplate>
-                                        <DataTemplate>
-                                            <buttons:MaterialIconButton x:Name="menuButton"
-                                                                      Tag="{Binding Icon}"
-                                                                      Foreground="White" />
-                                        </DataTemplate>
-                                    </buttons:SmallMenuIconButton.ButtonTemplate>
-                                    <buttons:SmallMenuIconButton.MenuItemTemplate>
-                                        <DataTemplate>
-                                            <menu:NavigationMenuItem ItemTemplate="{StaticResource MenuItemTemplate}" />
-                                        </DataTemplate>
-                                    </buttons:SmallMenuIconButton.MenuItemTemplate>
-                                </buttons:SmallMenuIconButton> 
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>-->
                 </Grid>
             </ScrollViewer>
         </Grid>

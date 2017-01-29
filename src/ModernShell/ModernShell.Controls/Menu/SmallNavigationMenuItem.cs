@@ -2,67 +2,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace ModernShell.Controls.Menu
 {
-    public class NavigationMenuItem : Control
+    public class SmallNavigationMenuItem : Control
     {
-        private ItemsControl _menuItemsControl;
-        private bool _isExpanded;
         private bool _deferredSelection;
-
-        static NavigationMenuItem()
+        private Popup _popup;
+        private ItemsControl _menuItemsControl;
+        
+        static SmallNavigationMenuItem()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(NavigationMenuItem), new FrameworkPropertyMetadata(typeof(NavigationMenuItem)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(SmallNavigationMenuItem), new FrameworkPropertyMetadata(typeof(SmallNavigationMenuItem)));
         }
 
         public static readonly RoutedEvent SelectionChangedEvent = EventManager.RegisterRoutedEvent(
             "SelectionChanged",
             RoutingStrategy.Bubble,
             typeof(RoutedPropertyChangedEventHandler<bool>),
-            typeof(NavigationMenuItem));
+            typeof(SmallNavigationMenuItem));
 
         public static readonly DependencyProperty MenuItemsProperty = DependencyProperty.Register(
             "MenuItems",
-            typeof(ICollection<NavigationMenuItem>),
-            typeof(NavigationMenuItem),
+            typeof(ICollection<SmallNavigationMenuItem>),
+            typeof(SmallNavigationMenuItem),
             new PropertyMetadata(null));
 
         public static readonly DependencyProperty SelectedMenuItemProperty = DependencyProperty.Register(
             "SelectedMenuItem",
-            typeof(NavigationMenuItem),
-            typeof(NavigationMenuItem),
+            typeof(SmallNavigationMenuItem),
+            typeof(SmallNavigationMenuItem),
             new PropertyMetadata(null));
 
         public static readonly DependencyProperty IsSelectedProperty = DependencyProperty.Register(
             "IsSelected",
             typeof(bool),
-            typeof(NavigationMenuItem),
+            typeof(SmallNavigationMenuItem),
             new PropertyMetadata(false, OnIsSelectedChanged));
 
         public static readonly DependencyProperty ItemTemplateProperty = DependencyProperty.Register(
             "ItemTemplate",
             typeof(DataTemplate),
-            typeof(NavigationMenuItem),
+            typeof(SmallNavigationMenuItem),
             new PropertyMetadata(null));
-
+        
         public event RoutedPropertyChangedEventHandler<bool> SelectionChanged
         {
             add { AddHandler(SelectionChangedEvent, value); }
             remove { RemoveHandler(SelectionChangedEvent, value); }
         }
 
-        public ICollection<NavigationMenuItem> MenuItems
+        public ICollection<SmallNavigationMenuItem> MenuItems
         {
             set { SetValue(MenuItemsProperty, value); }
-            get { return (ICollection<NavigationMenuItem>)GetValue(MenuItemsProperty); }
+            get { return (ICollection<SmallNavigationMenuItem>)GetValue(MenuItemsProperty); }
         }
 
-        public NavigationMenuItem SelectedMenuItem
+        public SmallNavigationMenuItem SelectedMenuItem
         {
             set { SetValue(SelectedMenuItemProperty, value); }
-            get { return (NavigationMenuItem)GetValue(SelectedMenuItemProperty); }
+            get { return (SmallNavigationMenuItem)GetValue(SelectedMenuItemProperty); }
         }
 
         public bool IsSelected
@@ -81,6 +82,7 @@ namespace ModernShell.Controls.Menu
         {
             base.OnApplyTemplate();
             _menuItemsControl = Template.FindName("PART_MenuItems", this) as ItemsControl;
+            _popup = Template.FindName("PART_Popup", this) as Popup;
 
             if (_menuItemsControl != null && _deferredSelection)
             {
@@ -103,31 +105,28 @@ namespace ModernShell.Controls.Menu
 
         private static void OnIsSelectedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var item = (NavigationMenuItem)d;
-            item.PostIsSelectedAction();
-        }
-
-        private void PostIsSelectedAction()
-        {
-            _isExpanded = IsSelected && (MenuItems?.Any() ?? false);
-            CalculateMenuItemsVisibility();
-        }
-
-        private void CalculateMenuItemsVisibility()
-        {
-            _menuItemsControl.Visibility = _isExpanded
-                ? Visibility.Visible
-                : Visibility.Collapsed;
+            var item = (SmallNavigationMenuItem)d;
+            //item._popup.IsOpen = false;
         }
 
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
+            if ((MenuItems?.Any() ?? false))
+            {
+                _popup.IsOpen = !_popup.IsOpen;
+            }
+
             if (!IsSelected)
             {
                 SelectItem();
             }
 
             e.Handled = true;
+        }
+
+        internal void ClosePopup()
+        {
+            _popup.IsOpen = false;
         }
 
         internal void SelectItem()
