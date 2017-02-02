@@ -103,32 +103,19 @@
             </Grid.RowDefinitions>
 
             <ContentControl x:Name="CompanyLogoContent"
-                            Grid.Row="0"
-                            Height="60">
-                <Grid Background="#FF22262E">
-                    <StackPanel Orientation="Horizontal"
-                                Margin="28,0,22,0"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Left">
-                        <TextBlock Foreground="White"
-                                   FontSize="26"
-                                   FontStretch="UltraCondensed"
-                                   FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}">
-                        <Run FontWeight="Light">wpf</Run>
-                        </TextBlock>
-                        <TextBlock Foreground="White"
-                                   FontSize="26"
-                                   FontStretch="UltraCondensed"
-                                   FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}">
-                        <Run FontWeight="ExtraBold">&#x00B7;</Run>
-                        </TextBlock>
-                        <TextBlock Foreground="White"
-                                   FontSize="26"
-                                   FontStretch="UltraCondensed"
-                                   FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}">
-                        <Run FontWeight="ExtraBold">arch</Run>
-                        </TextBlock>
-                    </StackPanel>
+                            Grid.Row="0">
+                <Grid Background="#FF22262E"
+                      Height="60">
+                    <TextBlock Foreground="White"
+                               Margin="28,0,22,0"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"
+                               FontSize="26"
+                               FontWeight="ExtraBold"
+                               FontStretch="UltraCondensed"
+                               FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}">
+                        <Run FontWeight="Light" Text="wpf" />&#x00B7;arch
+                    </TextBlock>
                 </Grid>
             </ContentControl>
 
