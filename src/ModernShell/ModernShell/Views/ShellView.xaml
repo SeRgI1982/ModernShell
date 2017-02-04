@@ -6,6 +6,9 @@
         xmlns:buttons="clr-namespace:ModernShell.Controls.Buttons;assembly=ModernShell.Controls"
         xmlns:menu="clr-namespace:ModernShell.Controls.Menu;assembly=ModernShell.Controls"
         xmlns:viewModels="clr-namespace:ModernShell.ViewModels"
+        xmlns:panels="clr-namespace:ModernShell.Controls.Panels;assembly=ModernShell.Controls"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
         Title="ShellView"
         WindowState="Maximized"
@@ -200,54 +203,90 @@
                 </Grid>
             </ContentControl>
 
-            <ScrollViewer x:Name="MainContent"
-                          HorizontalScrollBarVisibility="Auto"
-                          VerticalScrollBarVisibility="Auto"
-                          Background="#FFE5E9EC"
-                          Grid.Row="1">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+            <Grid x:Name="MainContent"
+                  Background="#FFE5E9EC"
+                  Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-                    <Grid x:Name="InternalSmallNavMenu"
-                          Width="50"
-                          Background="#FF0AA699">
-                        <menu:SmallNavigationMenu x:Name="smallNavMenu"
-                                                  ItemsSource="{Binding Items}"
-                                                  SelectedItem="{Binding SelectedItem}" />
-                    </Grid>
-
-                    <Grid Grid.Column="1"
-                          Margin="26">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="32" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <StackPanel x:Name="breadcrumb" Orientation="Horizontal" VerticalAlignment="Center">
-                            <TextBlock Text="YOU ARE HERE"
-                                       Foreground="#ff7b7d82"
-                                       FontSize="12.5"
-                                       Margin="0,0,10,0"
-                                       FontWeight="Regular"
-                                       FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}" />
-                            <TextBlock Text="&#xE5CC;"
-                                       Margin="2,2,2,0"
-                                       Foreground="#FF515050"
-                                       FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=MaterialFont}}"
-                                       />
-                            <TextBlock Text="{Binding SelectedItem.Text}"
-                                       FontWeight="DemiBold"
-                                       FontSize="14"
-                                       Foreground="#FF515050"
-                                       Margin="10,0,0,0"
-                                       FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}" />
-                        </StackPanel>
-                        
-                    </Grid>
+                <Grid x:Name="InternalSmallNavMenu"
+                      Width="50"
+                      Background="#FF0AA699">
+                    <menu:SmallNavigationMenu x:Name="smallNavMenu"
+                                              ItemsSource="{Binding Items}"
+                                              SelectedItem="{Binding SelectedItem}" />
                 </Grid>
-            </ScrollViewer>
+
+                <Grid Grid.Column="1"
+                      Margin="26">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel x:Name="breadcrumb"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="YOU ARE HERE"
+                                   Foreground="#ff7b7d82"
+                                   FontSize="12.5"
+                                   Margin="0,0,10,0"
+                                   FontWeight="Regular"
+                                   FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}" />
+                        <TextBlock Text="&#xE5CC;"
+                                   Margin="2,2,2,0"
+                                   Foreground="#FF515050"
+                                   FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=MaterialFont}}" />
+                        <TextBlock Text="{Binding SelectedItem.Text}"
+                                   FontWeight="DemiBold"
+                                   FontSize="14"
+                                   Foreground="#FF515050"
+                                   Margin="10,0,0,0"
+                                   FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}" />
+                    </StackPanel>
+
+                    <WrapPanel Grid.Row="1"
+                               
+                               VerticalAlignment="Top">
+                        <i:Interaction.Behaviors>
+                            <ei:FluidMoveBehavior AppliesTo="Children"
+                                                  Duration="0:0:0.5" />
+                        </i:Interaction.Behaviors>
+                        <panels:ProgressPanel Width="262"
+                                              Height="125"
+                                              Background="#FF0090d9"
+                                              Header="TODAY'S SERVER LOAD"
+                                              Value="78"
+                                              MaxValue="100"
+                                              Difference="0.04"/>
+                        <panels:ProgressPanel Width="262"
+                                              Height="125"
+                                              Background="#0aa699"
+                                              Header="TODAY'S SERVER LOAD"
+                                              Value="26"
+                                              Difference="0.02"
+                                              ValueFormat="{}{0:C2}"
+                                              MaxValue="100" />
+                        <panels:ProgressPanel Width="262"
+                                              Height="125"
+                                              Background="#f35958"
+                                              Header="TODAY'S SERVER LOAD"
+                                              ValueFormat="{}{0:P1}"
+                                              Value="44"
+                                              Difference="0.05"
+                                              MaxValue="100" />
+                        <panels:ProgressPanel Width="262"
+                                              Height="125"
+                                              Background="#735f87"
+                                              Header="TODAY'S SERVER LOAD"
+                                              Value="95"
+                                              Difference="0.03"
+                                              ValueFormat="{}{0:F0}"
+                                              MaxValue="100" />
+                        </WrapPanel>
+                </Grid>
+            </Grid>
         </Grid>
 
         <Grid x:Name="notificationPanel"

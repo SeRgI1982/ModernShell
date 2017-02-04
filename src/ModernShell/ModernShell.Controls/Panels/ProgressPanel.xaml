@@ -1,0 +1,91 @@
+<utils:SharedResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ModernShell.Controls.Panels"
+                    xmlns:utils="clr-namespace:ModernShell.Controls.Primitives.Utils;assembly=ModernShell.Controls.Primitives"
+                    xmlns:buttons="clr-namespace:ModernShell.Controls.Buttons"
+                    xmlns:menu="clr-namespace:ModernShell.Controls.Menu">
+    <Style TargetType="{x:Type local:ProgressPanel}">
+        <Setter Property="Padding" Value="24,19,18,15" />
+        <Setter Property="Margin" Value="0,0,20,20" />
+        <Setter Property="AnimationLength" Value="1500" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ProgressPanel}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.7*" />
+                                <ColumnDefinition Width="0.3*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       Text="{TemplateBinding Header}" 
+                                       FontSize="11"
+                                       FontWeight="Medium"
+                                       FontStretch="Condensed"
+                                       FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}" />
+                            <buttons:MaterialIconButton Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Grid.ColumnSpan="2"
+                                                        Tag="clear"
+                                                        DisableTransitions="True"
+                                                        FontSize="14"
+                                                        Width="14"
+                                                        Height="14"
+                                                        Foreground="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=DefaultSubMenuItemBackground}}"
+                                                        FontWeight="Bold"
+                                                        Margin="0,-3,0,0"
+                                                        HorizontalAlignment="Right"
+                                                        VerticalAlignment="Top" />
+                            <local:AnimatedTextBlock x:Name="ProgressText"
+                                                     Grid.Row="1"
+                                                     Grid.Column="0"
+                                                     Grid.ColumnSpan="2"
+                                                     Margin="0,4"
+                                                     FontSize="25"
+                                                     FontWeight="SemiBold"
+                                                     ValueFormat="{TemplateBinding ValueFormat}"
+                                                     FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}" />
+                            <Rectangle x:Name="ProgressLineBackground"
+                                       Grid.Row="2"
+                                       Grid.Column="0"
+                                       Height="2"
+                                       Fill="Gray"
+                                       Margin="0,0,0,13" />
+                            <Rectangle x:Name="ProgressLine"
+                                       Grid.Row="2"
+                                       Grid.Column="0"
+                                       Height="2"
+                                       HorizontalAlignment="Left"
+                                       Margin="0,0,0,13"
+                                       Fill="White" />
+                            <StackPanel Grid.Row="3"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        Orientation="Horizontal">
+                                <TextBlock Text="&#xe001;"
+                                           FontSize="21"
+                                           Foreground="White"
+                                           FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=IcomoonFont}}" />
+                                <TextBlock Text="{Binding Difference, RelativeSource={RelativeSource TemplatedParent}, StringFormat='{}{0:P0} higher than last month'}" 
+                                           FontSize="13"
+                                           Margin="5,0,0,0"
+                                           VerticalAlignment="Center"
+                                           FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}" />
+                            </StackPanel>
+                            
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</utils:SharedResourceDictionary>

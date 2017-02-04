@@ -34,3 +34,12 @@ _ReSharper*/
 *.opensdf
 *.sdf
 **/.vscode
+/src/ModernShell/ModernShell.Controls/Fonts/._icomoon.ttf
+/src/ModernShell/ModernShell.Controls/.DS_Store
+/src/ModernShell/ModernShell.Controls/._.DS_Store
+/src/ModernShell/.DS_Store
+/src/ModernShell/._.DS_Store
+/src/.DS_Store
+/src/._.DS_Store
+/.DS_Store
+/._.DS_Store

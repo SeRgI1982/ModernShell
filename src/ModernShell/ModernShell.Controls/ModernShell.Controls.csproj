@@ -132,6 +132,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Panels\ProgressPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -147,6 +151,8 @@
     <Compile Include="Menu\NavigationMenuItem.cs" />
     <Compile Include="Menu\SmallNavigationMenu.cs" />
     <Compile Include="Menu\SmallNavigationMenuItem.cs" />
+    <Compile Include="Panels\AnimatedTextBlock.cs" />
+    <Compile Include="Panels\ProgressPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -166,6 +172,7 @@
     </EmbeddedResource>
     <Resource Include="Fonts\MaterialIcons-Regular.ttf" />
     <Resource Include="Fonts\Roboto-Regular.ttf" />
+    <Resource Include="Fonts\icomoon.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

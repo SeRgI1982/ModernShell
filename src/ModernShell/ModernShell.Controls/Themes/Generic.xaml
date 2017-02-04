@@ -7,6 +7,7 @@
     <!--Fonts-->
     <FontFamily x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=MaterialFont}">/ModernShell.Controls;component/Fonts/MaterialIcons-Regular.ttf#Material Icons</FontFamily>
     <FontFamily x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}">../Fonts/Roboto-Regular.ttf#Roboto Regular</FontFamily>
+    <FontFamily x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=IcomoonFont}">/ModernShell.Controls;component/Fonts/icomoon.ttf#icomoon</FontFamily>
 
     <!--Color Brushes-->
     <SolidColorBrush x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=DefaultMenuItemBackground}">#FF1B1E24</SolidColorBrush>
@@ -23,6 +24,7 @@
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Menu/NavigationMenuItem.xaml" />
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Menu/SmallNavigationMenu.xaml" />
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Menu/SmallNavigationMenuItem.xaml" />
+        <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Panels/ProgressPanel.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 
