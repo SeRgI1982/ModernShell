@@ -9,6 +9,7 @@
         xmlns:panels="clr-namespace:ModernShell.Controls.Panels;assembly=ModernShell.Controls"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:textBoxes="clr-namespace:ModernShell.Controls.TextBoxes;assembly=ModernShell.Controls"
         mc:Ignorable="d"
         Title="ShellView"
         WindowState="Maximized"
@@ -282,6 +283,31 @@
 
             <ContentControl x:Name="NotificationMenuContent">
                 <Grid Background="#FF1B1E24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"
+                                       SharedSizeGroup="FirstRowHeight" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <textBoxes:WatermarkTextBox VerticalAlignment="Top"
+                                                Margin="10, 15,10,0"
+                                                Watermark="search">
+                        <textBoxes:WatermarkTextBox.Style>
+                            <Style BasedOn="{StaticResource {x:Type textBoxes:WatermarkTextBox}}" 
+                                   TargetType="textBoxes:WatermarkTextBox">
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Background" Value="#FF0D0F12" />
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="WatermarkForeground" Value="#FF6F7B8A" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsKeyboardFocused" Value="True">
+                                        <Setter Property="Background" Value="White" />
+                                        <Setter Property="Foreground" Value="Black" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </textBoxes:WatermarkTextBox.Style>
+                    </textBoxes:WatermarkTextBox>
                 </Grid>
             </ContentControl>
         </Grid>

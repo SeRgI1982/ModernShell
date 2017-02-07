@@ -25,6 +25,7 @@
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Menu/SmallNavigationMenu.xaml" />
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Menu/SmallNavigationMenuItem.xaml" />
         <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/Panels/ProgressPanel.xaml" />
+        <utils:SharedResourceDictionary Source="/ModernShell.Controls;component/TextBoxes/WatermarkTextBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 
