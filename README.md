@@ -11,6 +11,6 @@ Roadmap:
 - [ ] Breadcrumb
 - [ ] Interactive chart
 - [ ] Interactive grid
-- [ ] Notification panel
+- [x] Notification panel
 
-[![XAML is AWESOME](http://img.youtube.com/vi/J5mQRVTVjDw/0.jpg)](https://www.youtube.com/watch?v=J5mQRVTVjDw "XAML is AWESOME")
+[![XAML is AWESOME](http://img.youtube.com/vi/G33UKPIKqJo/0.jpg)](https://www.youtube.com/watch?v=G33UKPIKqJo "XAML is AWESOME")
