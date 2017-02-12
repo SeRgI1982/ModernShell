@@ -132,9 +132,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Contact.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\NotifyPropertyBase.cs" />
+    <Compile Include="Models\Statuses.cs" />
     <Compile Include="ViewModels\MenuItem.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
@@ -174,6 +177,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{8F3AB0FE-5BC2-4830-9670-EFA18FD048D5}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModernShell.Controls.Primitives\ModernShell.Controls.Primitives.csproj">
       <Project>{cb61f137-0c21-407b-bccb-aa91660839a3}</Project>
       <Name>ModernShell.Controls.Primitives</Name>
@@ -185,6 +192,14 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\avatar_small2x.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\c2x.jpg" />
+    <Resource Include="Assets\d2x.jpg" />
+    <Resource Include="Assets\h2x.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\a2x.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

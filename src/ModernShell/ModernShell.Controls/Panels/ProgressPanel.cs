@@ -23,7 +23,7 @@ namespace ModernShell.Controls.Panels
             "Value",
             typeof(double),
             typeof(ProgressPanel),
-            new PropertyMetadata(default(double)));
+            new PropertyMetadata(default(double), OnValueChanged));
 
         public static readonly DependencyProperty ValueFormatProperty = DependencyProperty.Register(
             "ValueFormat",
@@ -107,6 +107,12 @@ namespace ModernShell.Controls.Panels
             _progressText = Template.FindName("ProgressText", this) as AnimatedTextBlock;
             _progressLine = Template.FindName("ProgressLine", this) as Rectangle;
             _progressBackgroundLine = Template.FindName("ProgressLineBackground", this) as Rectangle;
+        }
+
+        private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var panel = (ProgressPanel)d;
+            panel.DoTransition();
         }
 
         private void OnProgressPanelLoaded(object sender, RoutedEventArgs e)

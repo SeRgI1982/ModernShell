@@ -10,9 +10,9 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:textBoxes="clr-namespace:ModernShell.Controls.TextBoxes;assembly=ModernShell.Controls"
+        xmlns:models="clr-namespace:ModernShell.Models"
         mc:Ignorable="d"
         Title="ShellView"
-        WindowState="Maximized"
         d:DesignHeight="600"
         d:DesignWidth="800">
 
@@ -245,14 +245,14 @@
                                               Height="125"
                                               Background="#FF0090d9"
                                               Header="TODAY'S SERVER LOAD"
-                                              Value="78"
+                                              Value="{Binding Value1}"
                                               MaxValue="100"
                                               Difference="0.04"/>
                         <panels:ProgressPanel Width="262"
                                               Height="125"
                                               Background="#0aa699"
                                               Header="TODAY'S SERVER LOAD"
-                                              Value="26"
+                                              Value="{Binding Value2}"
                                               Difference="0.02"
                                               ValueFormat="{}{0:C2}"
                                               MaxValue="100" />
@@ -261,14 +261,14 @@
                                               Background="#f35958"
                                               Header="TODAY'S SERVER LOAD"
                                               ValueFormat="{}{0:P1}"
-                                              Value="44"
+                                              Value="{Binding Value3}"
                                               Difference="0.05"
                                               MaxValue="100" />
                         <panels:ProgressPanel Width="262"
                                               Height="125"
                                               Background="#735f87"
                                               Header="TODAY'S SERVER LOAD"
-                                              Value="95"
+                                              Value="{Binding Value4}"
                                               Difference="0.03"
                                               ValueFormat="{}{0:F0}"
                                               MaxValue="100" />
@@ -286,12 +286,15 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"
                                        SharedSizeGroup="FirstRowHeight" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <textBoxes:WatermarkTextBox VerticalAlignment="Top"
-                                                Margin="10, 15,10,0"
-                                                Watermark="search">
+                    <textBoxes:WatermarkTextBox Grid.Row="0" 
+                                                VerticalAlignment="Top"
+                                                Margin="10,15,10,0"
+                                                Watermark="search"
+                                                Text="{Binding SearchPhrase, UpdateSourceTrigger=PropertyChanged}">
                         <textBoxes:WatermarkTextBox.Style>
                             <Style BasedOn="{StaticResource {x:Type textBoxes:WatermarkTextBox}}" 
                                    TargetType="textBoxes:WatermarkTextBox">
@@ -308,6 +311,136 @@
                             </Style>
                         </textBoxes:WatermarkTextBox.Style>
                     </textBoxes:WatermarkTextBox>
+
+                    <TextBlock Grid.Row="1"
+                               Text="FRIENDS"
+                               Foreground="#FF808285"
+                               FontSize="12"
+                               Margin="31,10"
+                               FontWeight="SemiBold"
+                               FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}" />
+
+                    <ItemsControl Grid.Row="2"
+                                  ItemsSource="{Binding Contacts}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="models:Contact">
+                                <Grid x:Name="layout" 
+                                      Margin="8,0"
+                                      Height="55">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="20" />
+                                    </Grid.ColumnDefinitions>
+                                    <buttons:MaterialCircleButton Grid.Column="0" 
+                                                                  ImageSource="{Binding Icon}"
+                                                                  HorizontalAlignment="Center"
+                                                                  VerticalAlignment="Center"
+                                                                  Width="35"
+                                                                  Height="35" />
+                                    <Grid Grid.Column="1">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="1" 
+                                                   Foreground="White"
+                                                   FontSize="13"
+                                                   FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} {1}">
+                                                    <Binding Path="FirstName" />
+                                                    <Binding Path="LastName" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+
+                                        <TextBlock Grid.Row="2"
+                                                   Foreground="#FF808285"
+                                                   FontSize="10"
+                                                   FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}"
+                                                   Text="{Binding LastMessage}" />
+                                        
+                                    </Grid>
+                                    <Grid Grid.Column="2"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center">
+                                        <Ellipse Width="14"
+                                                 Height="14"
+                                                 Fill="#f35958"
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Center" />
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="White"
+                                                   FontSize="10"
+                                                   FontWeight="Bold"
+                                                   FontFamily="{DynamicResource {ComponentResourceKey TypeInTargetAssembly={x:Type menu:NavigationMenu}, ResourceId=RobotoFont}}" 
+                                                   Text="{Binding Messages.Count}"/>
+                                        <Grid.Style>
+                                            <Style TargetType="Grid">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Messages.Count}" Value="0">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Messages.Count}" Value="1">
+                                                        <Setter Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Grid.Style>
+                                    </Grid>
+                                    
+                                    <Grid Grid.Column="3" 
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          ToolTip="{Binding Status, Converter={StaticResource EnumConverter}}">
+                                        <Ellipse Width="12"
+                                                 Height="12"
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Center">
+                                            <Ellipse.Style>
+                                                <Style TargetType="Ellipse">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Status}" Value="{x:Static models:Statuses.Away}">
+                                                            <Setter Property="Fill" Value="#FF0090d9" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="{x:Static models:Statuses.DoNotDisturb}">
+                                                            <Setter Property="Fill" Value="#735f87" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="{x:Static models:Statuses.Offline}">
+                                                            <Setter Property="Fill" Value="#f35958" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Status}" Value="{x:Static models:Statuses.Online}">
+                                                            <Setter Property="Fill" Value="#FF0AA699" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Ellipse.Style>
+                                        </Ellipse>
+                                        <Ellipse Width="6"
+                                                 Height="6"
+                                                 HorizontalAlignment="Center"
+                                                 VerticalAlignment="Center"
+                                                 Fill="#FF1B1E24" />
+                                    </Grid>
+                                    <Grid.Style>
+                                        <Style TargetType="Grid">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#FF22262E" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Grid.Style>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </Grid>
             </ContentControl>
         </Grid>
